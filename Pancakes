@@ -1,0 +1,48 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+import java.math.BigInteger;
+
+/*https://code.google.com/codejam/contest/3264486/dashboard*/
+class Pancakes
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+		Scanner sc = new Scanner(System.in);
+		int cases = sc.nextInt();
+		int caseNum = 1;
+		String empty = sc.nextLine();
+		for(int i = 0; i < cases; i++){
+			String line = sc.next();
+			//System.out.println(line);
+			int k = sc.nextInt();
+			boolean[] pan = new boolean[line.length()];
+			Arrays.fill(pan, Boolean.FALSE);
+			int flip = 0;
+			for(int j = 0; j < line.length() - k + 1; j++){
+				//System.out.println(line.charAt(j) + " " + pan[j]);
+				if((line.charAt(j) == '-' && pan[j] == false) || (line.charAt(j) == '+' && pan[j] == true)){
+					//System.out.println(j);
+					flip++;
+					for(int l = 0; l < k; l++){
+						pan[j + l] = (pan[j + l] == true) ? false : true;
+					} 
+				}
+			}
+			boolean found = false;
+			for(int r = 0; r < k; r++){
+					char wow = line.charAt(line.length() - 1 - r);
+				if((wow == '-' && pan[line.length() - 1 - r] == false) || (wow == '+' && pan[line.length() - 1 - r] == true)){
+					System.out.println("Case #" + caseNum + ": IMPOSSIBLE");
+					found = true;
+					break;
+				}
+			}
+			if(!found){
+				System.out.println("Case #" + caseNum + ": " + flip);
+			}
+			caseNum++;
+		}
+	}
+}
